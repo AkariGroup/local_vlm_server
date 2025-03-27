@@ -1,0 +1,20 @@
+// url_service.proto
+syntax = "proto3";
+
+package local_vlm_server;
+
+// 空のメッセージ型
+
+// URL情報を含むメッセージ
+message SendImageRequest {
+  string url = 1;
+}
+message SendImageReply {
+  bool success = 1;
+}
+
+service LocalVlmServerService {
+  // 新しいURLを送信
+  rpc SendImage (SendImageRequest) returns (SendImageReply) {}
+}
+
