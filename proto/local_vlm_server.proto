@@ -1,4 +1,4 @@
-// url_service.proto
+// local_vlm_server.proto
 syntax = "proto3";
 
 package local_vlm_server;
@@ -7,10 +7,11 @@ package local_vlm_server;
 
 // URL情報を含むメッセージ
 message SendImageRequest {
-  string url = 1;
+  repeated string images = 1;
+  optional string prompt = 2;
 }
 message SendImageReply {
-  bool success = 1;
+ string response = 1;
 }
 
 service LocalVlmServerService {
