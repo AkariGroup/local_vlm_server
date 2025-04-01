@@ -1,6 +1,6 @@
 # Local VLM Server
 
-ローカル環境で動作するVisual Language Model (VLM)サーバーです。[SmolVLM](https://huggingface.co/HuggingFaceTB/SmolVLM-256M-Instruct)を使用して、画像理解と自然言語での応答を提供します。
+ローカル環境で動作するVisual Language Model (VLM)サーバー。[SmolVLM](https://huggingface.co/HuggingFaceTB/SmolVLM-256M-Instruct)を使用して、画像理解と自然言語での応答を提供する。  
 
 ## インストール
 
@@ -12,13 +12,22 @@ pip install -r requirements.txt
 ### サーバーの起動
 
 ```bash
-python vlm_server.py
+python vlm_server.py [--model MODEL_NAME]
 ```
+
+#### パラメータ
+
+- `--model`: 使用するVLMモデル名（デフォルト: "HuggingFaceTB/SmolVLM-256M-Instruct"）  
+    使用可能なモデルは下記。  
+    - "HuggingFaceTB/SmolVLM-256M-Instruct",
+    - "HuggingFaceTB/SmolVLM-500M-Instruct",
+    - "vikhyatk/moondream2"
 
 ### クライアントの使用例
 
+例)
 ```bash
-python local_vlm_example.py --image_path path/to/image.jpg --prompt "Please describe this image."
+python local_vlm_example.py --image_path image/akari.jpg --prompt "Please describe this image."
 ```
 
 #### パラメータ
