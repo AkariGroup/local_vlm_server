@@ -1,7 +1,11 @@
+accelerate
+einops
 grpcio
 grpcio-tools
 opencv-python
 pillow
 protobuf
+pyvips
+pyvips-binary
 torch
 transformers

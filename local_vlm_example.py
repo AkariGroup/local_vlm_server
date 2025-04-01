@@ -3,6 +3,7 @@ import base64
 import grpc
 import os
 import sys
+import time
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "lib/grpc"))
 import local_vlm_server_pb2
@@ -52,10 +53,11 @@ def main() -> None:
         images=encoded_images,
         prompt=args.prompt,
     )
-
+    start_time = time.time()
     try:
         response = stub.SendImage(request)
         print(f"Response: {response.response}")
+        print(f"Time taken: {time.time() - start_time:.2f}s")
     except grpc.RpcError as e:
         print(f"RPC error: {e}")
 
