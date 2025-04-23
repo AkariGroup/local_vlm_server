@@ -1,6 +1,6 @@
 # Local VLM Server
 
-ローカル環境で動作するVisual Language Model (VLM)サーバー。[SmolVLM](https://huggingface.co/HuggingFaceTB/SmolVLM-256M-Instruct)や[moondream2] (https://huggingface.co/vikhyatk/moondream2)を使用して、画像理解と自然言語での応答を提供する。  
+ローカル環境で動作するVisual Language Model (VLM)サーバー。[SmolVLM](https://huggingface.co/HuggingFaceTB/SmolVLM-256M-Instruct)や[moondream2](https://huggingface.co/vikhyatk/moondream2)を使用して、画像理解と自然言語での応答を提供する。  
 
 
 ## インストール

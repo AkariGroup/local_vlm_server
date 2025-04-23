@@ -1,6 +1,7 @@
 import argparse
 import os
 import sys
+import time
 import json
 import base64
 from datetime import datetime
@@ -35,9 +36,11 @@ class LocalVlmServer(local_vlm_server_pb2_grpc.LocalVlmServerServiceServicer):
         try:
             # Base64エンコードされた画像を処理
             images_list = list(request.images)  # RepeatedScalarContainerをリストに変換
+            start_time = time.time()
             response = self.vlm.chat(
                 images_list, request.prompt
             )
+            interval = time.time() - start_time
 
             # 保存モードが有効な場合
             if self.save_dir:
@@ -52,7 +55,9 @@ class LocalVlmServer(local_vlm_server_pb2_grpc.LocalVlmServerServiceServicer):
                     # JSON保存
                     json_data = {
                         "timestamp": timestamp,
+                        "prompt": request.prompt,
                         "response": response,
+                        "response_time": interval,
                         "image_file": f"{self.counter:04d}.jpg"
                     }
                     json_path = os.path.join(self.save_dir, f"{self.counter:04d}.json")
