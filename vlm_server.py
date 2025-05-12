@@ -92,6 +92,8 @@ def main() -> None:
         from lib.smolvlm import SmolVlm as Vlm
     elif vlm_category == "moondream":
         from lib.moondream import Moondream as Vlm
+    elif vlm_category == "heron":
+        from lib.heron import HeronNvilaLite as Vlm
     else:
         raise ValueError(f"Unknown VLM category: {vlm_category}")
     vlm = Vlm(args.model)

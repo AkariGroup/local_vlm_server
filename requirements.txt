@@ -1,5 +1,6 @@
 accelerate
 einops
+git+https://github.com/bfshi/scaling_on_scales.git
 grpcio
 grpcio-tools
 opencv-python
@@ -7,5 +8,8 @@ pillow
 protobuf
 pyvips
 pyvips-binary
+s2-wrapper
 torch
+torchvision
 transformers
+xgrammar

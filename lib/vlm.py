@@ -14,6 +14,11 @@ VLM_LIST = {
     "moondream": [
         "vikhyatk/moondream2",
     ],
+    "heron": {
+        "turing-motors/Heron-NVILA-Lite-1B",
+        "turing-motors/Heron-NVILA-Lite-2B",
+        "turing-motors/Heron-NVILA-Lite-15B",
+    }
 }
 
 
