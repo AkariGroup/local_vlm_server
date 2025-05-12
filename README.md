@@ -21,11 +21,14 @@ python vlm_server.py [--model MODEL_NAME]
 - `--model`: 使用するVLMモデル名（デフォルト: "HuggingFaceTB/SmolVLM-256M-Instruct"）  
     使用可能なモデルは下記。  
     [SmolVLM](https://huggingface.co/HuggingFaceTB/SmolVLM-256M-Instruct)
+
       - "HuggingFaceTB/SmolVLM-256M-Instruct",
       - "HuggingFaceTB/SmolVLM-500M-Instruct",
     [moondream2](https://huggingface.co/vikhyatk/moondream2)
+
       - "vikhyatk/moondream2"
     [Heron-NVILA-Lite](https://huggingface.co/turing-motors/Heron-NVILA-Lite-1B)
+    
       - "turing-motors/Heron-NVILA-Lite-1B"
       - "turing-motors/Heron-NVILA-Lite-2B"
       - "turing-motors/Heron-NVILA-Lite-15B"
