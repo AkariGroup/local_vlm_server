@@ -9,7 +9,6 @@ dependencies = [
     "einops>=0.8.1",
     "grpcio>=1.74.0",
     "grpcio-tools>=1.74.0",
-    "lmdeploy>=0.1.0",
     "opencv-python>=4.12.0.88",
     "pillow>=11.3.0",
     "protobuf>=6.32.0",

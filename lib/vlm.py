@@ -24,6 +24,16 @@ VLM_LIST = {
         "apple/FastVLM-1.5B",
         "apple/FastVLM-7B",
     },
+    "internvl3": {
+        "OpenGVLab/InternVL3-1B",
+        "OpenGVLab/InternVL3-2B",
+        "OpenGVLab/InternVL3-8B",
+        "OpenGVLab/InternVL3-9B",
+        "OpenGVLab/InternVL3-14B",
+        "OpenGVLab/InternVL3-38B",
+        "OpenGVLab/InternVL3-78B",
+    }
+
 }
 
 

@@ -1,8 +1,8 @@
 import torch
 import numpy as np
 from typing import List, Optional, Union
-from lmdeploy import pipeline, TurbomindEngineConfig, ChatTemplateConfig
-from lmdeploy.vl import load_image
+from transformers import AutoTokenizer, AutoModel
+from PIL import Image
 from .vlm import Vlm
 
 
@@ -21,11 +21,20 @@ class InrernVl3(Vlm):
         """
         super().__init__()
         self.model_name = model_name
-        self.pipe = pipeline(
-            self.model,
-            backend_config=TurbomindEngineConfig(session_len=16384, tp=1),
-            chat_template_config=ChatTemplateConfig(model_name="internvl2_5"),
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        
+        # モデルとトークナイザーの初期化
+        self.tokenizer = AutoTokenizer.from_pretrained(
+            self.model_name, 
+            trust_remote_code=True
         )
+        self.model = AutoModel.from_pretrained(
+            self.model_name,
+            torch_dtype=torch.bfloat16 if torch.cuda.is_available() else torch.float32,
+            trust_remote_code=True,
+            low_cpu_mem_usage=True,
+            device_map="auto"
+        ).eval()
 
     def chat(
         self,
@@ -44,7 +53,8 @@ class InrernVl3(Vlm):
         """
         if prompt is None:
             prompt = self.DEFAULT_PROMPT
-        image = None
+        
+        # 画像の処理
         if isinstance(images, list):
             if len(images) < 1:
                 raise ValueError("Empty list of images.")
@@ -56,5 +66,26 @@ class InrernVl3(Vlm):
                 )
         else:
             image = self.convert_to_pil(images)
-        result = self.pipe((prompt, image))
-        return result.text
+        
+        # InternVL3の標準的な使い方に従って実装
+        # 画像タグを含むプロンプトを作成
+        question = f"<image>\n{prompt}"
+        
+        # モデルのchatメソッドを使用（正しい引数形式で）
+        generation_config = dict(
+            max_new_tokens=512,
+            do_sample=False,
+            temperature=0.0,
+        )
+        
+        # InternVL3のchatメソッドを呼び出し（history付き）
+        response, history = self.model.chat(
+            self.tokenizer, 
+            image,
+            question,
+            generation_config,
+            history=None,
+            return_history=True
+        )
+        
+        return response
