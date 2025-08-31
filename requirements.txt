@@ -3,12 +3,14 @@ einops
 git+https://github.com/bfshi/scaling_on_scales.git
 grpcio
 grpcio-tools
+lmdeploy
 opencv-python
 pillow
 protobuf
 pyvips
 pyvips-binary
 s2-wrapper
+timm
 torch
 torchvision
 transformers

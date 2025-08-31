@@ -1,0 +1,28 @@
+[project]
+name = "local-vlm-server"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "accelerate>=1.10.1",
+    "einops>=0.8.1",
+    "grpcio>=1.74.0",
+    "grpcio-tools>=1.74.0",
+    "lmdeploy>=0.1.0",
+    "opencv-python>=4.12.0.88",
+    "pillow>=11.3.0",
+    "protobuf>=6.32.0",
+    "pyvips>=3.0.0",
+    "pyvips-binary>=8.17.1",
+    "s2-wrapper>=0.1.0",
+    "s2wrapper",
+    "timm>=1.0.19",
+    "torch>=2.8.0",
+    "torchvision>=0.23.0",
+    "transformers>=4.56.0",
+    "xgrammar>=0.1.23",
+]
+
+[tool.uv.sources]
+s2wrapper = { git = "https://github.com/bfshi/scaling_on_scales.git" }
