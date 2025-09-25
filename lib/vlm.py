@@ -24,6 +24,12 @@ VLM_LIST = {
         "apple/FastVLM-1.5B",
         "apple/FastVLM-7B",
     },
+    "qwen": {
+        "Qwen/Qwen2.5-VL-3B-Instruct",
+        "Qwen/Qwen2.5-VL-7B-Instruct",
+        "Qwen/Qwen2.5-VL-32B-Instruct",
+        "Qwen/Qwen2.5-VL-72B-Instruct",
+    },
     "internvl3": {
         "OpenGVLab/InternVL3-1B",
         "OpenGVLab/InternVL3-2B",
