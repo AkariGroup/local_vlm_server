@@ -37,9 +37,7 @@ class LocalVlmServer(local_vlm_server_pb2_grpc.LocalVlmServerServiceServicer):
             # Base64エンコードされた画像を処理
             images_list = list(request.images)  # RepeatedScalarContainerをリストに変換
             start_time = time.time()
-            response = self.vlm.chat(
-                images_list, request.prompt
-            )
+            response = self.vlm.chat(images_list, request.prompt)
             interval = time.time() - start_time
 
             # 保存モードが有効な場合
@@ -58,7 +56,7 @@ class LocalVlmServer(local_vlm_server_pb2_grpc.LocalVlmServerServiceServicer):
                         "prompt": request.prompt,
                         "response": response,
                         "response_time": interval,
-                        "image_file": f"{self.counter:04d}.jpg"
+                        "image_file": f"{self.counter:04d}.jpg",
                     }
                     json_path = os.path.join(self.save_dir, f"{self.counter:04d}.json")
                     with open(json_path, "w", encoding="utf-8") as f:
@@ -75,6 +73,7 @@ class LocalVlmServer(local_vlm_server_pb2_grpc.LocalVlmServerServiceServicer):
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
+        "-m",
         "--model",
         help="Vlm model name",
         default="HuggingFaceTB/SmolVLM-256M-Instruct",
@@ -94,6 +93,10 @@ def main() -> None:
         from lib.moondream import Moondream as Vlm
     elif vlm_category == "heron":
         from lib.heron import HeronNvilaLite as Vlm
+    elif vlm_category == "fastvlm":
+        from lib.fastvlm import FastVlm as Vlm
+    elif vlm_category == "internvl3":
+        from lib.internvl3 import InrernVl3 as Vlm
     else:
         raise ValueError(f"Unknown VLM category: {vlm_category}")
     vlm = Vlm(args.model)

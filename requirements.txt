@@ -9,6 +9,7 @@ protobuf
 pyvips
 pyvips-binary
 s2-wrapper
+timm
 torch
 torchvision
 transformers
