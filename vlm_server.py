@@ -97,6 +97,8 @@ def main() -> None:
         from lib.fastvlm import FastVlm as Vlm
     elif vlm_category == "qwen":
         from lib.qwen import Qwen as Vlm
+    elif vlm_category == "lfm2vl":
+        from lib.lfm2vl import Lfm2Vl as Vlm
     elif vlm_category == "internvl3":
         from lib.internvl3 import InrernVl3 as Vlm
     else:

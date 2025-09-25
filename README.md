@@ -30,6 +30,8 @@ python vlm_server.py [--model MODEL_NAME]
       `apple/FastVLM-0.5B`, `apple/FastVLM-1.5B`, `apple/FastVLM-7B`
     - [Qwen2.5-VL Instruct シリーズ](https://huggingface.co/Qwen/Qwen2.5-VL-7B-Instruct)  
       `Qwen/Qwen2.5-VL-3B-Instruct`, `Qwen/Qwen2.5-VL-7B-Instruct`, `Qwen/Qwen2.5-VL-32B-Instruct`, `Qwen/Qwen2.5-VL-72B-Instruct`
+    - [LFM2-VL シリーズ](https://huggingface.co/LiquidAI/LFM2-VL-1.6B)  
+      `LiquidAI/LFM2-VL-450M`, `LiquidAI/LFM2-VL-1.6B`
     - [InternVL3 シリーズ](https://huggingface.co/OpenGVLab/InternVL3-1B)  
       `OpenGVLab/InternVL3-1B`, `OpenGVLab/InternVL3-2B`, `OpenGVLab/InternVL3-8B`, `OpenGVLab/InternVL3-9B`, `OpenGVLab/InternVL3-14B`, `OpenGVLab/InternVL3-38B`, `OpenGVLab/InternVL3-78B`
 
