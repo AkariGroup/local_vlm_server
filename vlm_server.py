@@ -95,6 +95,8 @@ def main() -> None:
         from lib.heron import HeronNvilaLite as Vlm
     elif vlm_category == "fastvlm":
         from lib.fastvlm import FastVlm as Vlm
+    elif vlm_category == "qwen":
+        from lib.qwen import Qwen as Vlm
     elif vlm_category == "internvl3":
         from lib.internvl3 import InrernVl3 as Vlm
     else:
