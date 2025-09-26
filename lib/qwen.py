@@ -11,9 +11,7 @@ from .vlm import Vlm
 class Qwen(Vlm):
     """Qwen2.5-VL instruct models wrapper."""
 
-    def __init__(
-        self, model_name: str = "Qwen/Qwen2.5-VL-7B-Instruct"
-    ) -> None:
+    def __init__(self, model_name: str = "Qwen/Qwen2.5-VL-7B-Instruct") -> None:
         super().__init__()
         self.model_name = model_name
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -79,7 +77,5 @@ class Qwen(Vlm):
         prompt_length = inputs["input_ids"].shape[-1]
         output_ids = generated_ids[:, prompt_length:]
 
-        text = self.processor.batch_decode(
-            output_ids, skip_special_tokens=True
-        )[0]
+        text = self.processor.batch_decode(output_ids, skip_special_tokens=True)[0]
         return text.strip()

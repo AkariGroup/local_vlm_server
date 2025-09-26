@@ -42,8 +42,7 @@ VLM_LIST = {
         "OpenGVLab/InternVL3-14B",
         "OpenGVLab/InternVL3-38B",
         "OpenGVLab/InternVL3-78B",
-    }
-
+    },
 }
 
 
@@ -65,6 +64,7 @@ class Vlm(metaclass=ABCMeta):
     """
     VLMの基底クラス
     """
+
     def __init__(self) -> None:
         """
         VLMの初期化

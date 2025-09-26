@@ -31,29 +31,34 @@ class InrernVl3(Vlm):
 
         # モデルとトークナイザーの初期化
         self.tokenizer = AutoTokenizer.from_pretrained(
-            self.model_name,
-            trust_remote_code=True
+            self.model_name, trust_remote_code=True
         )
         self.model = AutoModel.from_pretrained(
             self.model_name,
             torch_dtype=torch.bfloat16 if torch.cuda.is_available() else torch.float32,
             trust_remote_code=True,
             low_cpu_mem_usage=True,
-            device_map="auto"
+            device_map="auto",
         ).eval()
 
     def build_transform(self, input_size):
         MEAN, STD = self.IMAGENET_MEAN, self.IMAGENET_STD
-        transform = T.Compose([
-            T.Lambda(lambda img: img.convert('RGB') if img.mode != 'RGB' else img),
-            T.Resize((input_size, input_size), interpolation=InterpolationMode.BICUBIC),
-            T.ToTensor(),
-            T.Normalize(mean=MEAN, std=STD)
-        ])
+        transform = T.Compose(
+            [
+                T.Lambda(lambda img: img.convert("RGB") if img.mode != "RGB" else img),
+                T.Resize(
+                    (input_size, input_size), interpolation=InterpolationMode.BICUBIC
+                ),
+                T.ToTensor(),
+                T.Normalize(mean=MEAN, std=STD),
+            ]
+        )
         return transform
 
-    def find_closest_aspect_ratio(self, aspect_ratio, target_ratios, width, height, image_size):
-        best_ratio_diff = float('inf')
+    def find_closest_aspect_ratio(
+        self, aspect_ratio, target_ratios, width, height, image_size
+    ):
+        best_ratio_diff = float("inf")
         best_ratio = (1, 1)
         area = width * height
         for ratio in target_ratios:
@@ -67,19 +72,26 @@ class InrernVl3(Vlm):
                     best_ratio = ratio
         return best_ratio
 
-    def dynamic_preprocess(self, image, min_num=1, max_num=12, image_size=448, use_thumbnail=False):
+    def dynamic_preprocess(
+        self, image, min_num=1, max_num=12, image_size=448, use_thumbnail=False
+    ):
         orig_width, orig_height = image.size
         aspect_ratio = orig_width / orig_height
 
         # calculate the existing image aspect ratio
         target_ratios = set(
-            (i, j) for n in range(min_num, max_num + 1) for i in range(1, n + 1) for j in range(1, n + 1) if
-            i * j <= max_num and i * j >= min_num)
+            (i, j)
+            for n in range(min_num, max_num + 1)
+            for i in range(1, n + 1)
+            for j in range(1, n + 1)
+            if i * j <= max_num and i * j >= min_num
+        )
         target_ratios = sorted(target_ratios, key=lambda x: x[0] * x[1])
 
         # find the closest aspect ratio to the target
         target_aspect_ratio = self.find_closest_aspect_ratio(
-            aspect_ratio, target_ratios, orig_width, orig_height, image_size)
+            aspect_ratio, target_ratios, orig_width, orig_height, image_size
+        )
 
         # calculate the target width and height
         target_width = image_size * target_aspect_ratio[0]
@@ -94,7 +106,7 @@ class InrernVl3(Vlm):
                 (i % (target_width // image_size)) * image_size,
                 (i // (target_width // image_size)) * image_size,
                 ((i % (target_width // image_size)) + 1) * image_size,
-                ((i // (target_width // image_size)) + 1) * image_size
+                ((i // (target_width // image_size)) + 1) * image_size,
             )
             # split the image
             split_img = resized_img.crop(box)
@@ -107,9 +119,9 @@ class InrernVl3(Vlm):
 
     def load_image(self, image_file, input_size=448, max_num=12):
         if isinstance(image_file, Image.Image):
-            image = image_file.convert('RGB')
+            image = image_file.convert("RGB")
         else:
-            image = Image.open(image_file).convert('RGB')
+            image = Image.open(image_file).convert("RGB")
         transform = self.build_transform(input_size=input_size)
         images = self.dynamic_preprocess(
             image, image_size=input_size, use_thumbnail=True, max_num=max_num
@@ -163,7 +175,7 @@ class InrernVl3(Vlm):
             question,
             generation_config,
             history=None,
-            return_history=True
+            return_history=True,
         )
 
         return response

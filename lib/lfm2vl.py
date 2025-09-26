@@ -47,6 +47,7 @@ class Lfm2Vl(Vlm):
     ) -> str:
         if prompt is None:
             prompt = self.DEFAULT_PROMPT
+        print(f"prompt: {prompt}")
 
         pil_images = self._prepare_images(images)
 
@@ -73,9 +74,8 @@ class Lfm2Vl(Vlm):
             **generation_kwargs,
         )
 
-        text = self.processor.batch_decode(
-            outputs, skip_special_tokens=True
-        )[0]
+        text = self.processor.batch_decode(outputs, skip_special_tokens=True)[0]
+        print(text)
 
         if "Assistant:" in text:
             text = text.split("Assistant:", 1)[1]

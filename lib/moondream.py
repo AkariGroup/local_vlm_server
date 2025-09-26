@@ -1,7 +1,7 @@
 import torch
 import numpy as np
 from typing import List, Optional, Union
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoModelForCausalLM
 from .vlm import Vlm
 
 
@@ -48,10 +48,8 @@ class Moondream(Vlm):
             prompt = self.DEFAULT_PROMPT
         image = None
         if isinstance(images, list):
-            if len(images) <1:
-                raise ValueError(
-                    "Empty list of images."
-                )
+            if len(images) < 1:
+                raise ValueError("Empty list of images.")
             if len(images) == 1:
                 image = self.convert_to_pil(images[0])
             else:
