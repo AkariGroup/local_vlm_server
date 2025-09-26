@@ -14,6 +14,10 @@ VLM_LIST = {
     "moondream": [
         "vikhyatk/moondream2",
     ],
+    "lfm2vl": [
+        "LiquidAI/LFM2-VL-450M",
+        "LiquidAI/LFM2-VL-1.6B",
+    ],
     "heron": {
         "turing-motors/Heron-NVILA-Lite-1B",
         "turing-motors/Heron-NVILA-Lite-2B",
@@ -38,8 +42,7 @@ VLM_LIST = {
         "OpenGVLab/InternVL3-14B",
         "OpenGVLab/InternVL3-38B",
         "OpenGVLab/InternVL3-78B",
-    }
-
+    },
 }
 
 
@@ -61,6 +64,7 @@ class Vlm(metaclass=ABCMeta):
     """
     VLMの基底クラス
     """
+
     def __init__(self) -> None:
         """
         VLMの初期化

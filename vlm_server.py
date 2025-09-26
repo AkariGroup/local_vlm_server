@@ -33,11 +33,14 @@ class LocalVlmServer(local_vlm_server_pb2_grpc.LocalVlmServerServiceServicer):
         request: local_vlm_server_pb2.SendImageRequest(),
         context: grpc.ServicerContext,
     ) -> local_vlm_server_pb2.SendImageReply:
+        prompt = None
+        if request.HasField("prompt"):
+            prompt = request.prompt
         try:
             # Base64エンコードされた画像を処理
             images_list = list(request.images)  # RepeatedScalarContainerをリストに変換
             start_time = time.time()
-            response = self.vlm.chat(images_list, request.prompt)
+            response = self.vlm.chat(images=images_list, prompt=prompt)
             interval = time.time() - start_time
 
             # 保存モードが有効な場合
@@ -97,6 +100,8 @@ def main() -> None:
         from lib.fastvlm import FastVlm as Vlm
     elif vlm_category == "qwen":
         from lib.qwen import Qwen as Vlm
+    elif vlm_category == "lfm2vl":
+        from lib.lfm2vl import Lfm2Vl as Vlm
     elif vlm_category == "internvl3":
         from lib.internvl3 import InrernVl3 as Vlm
     else:
